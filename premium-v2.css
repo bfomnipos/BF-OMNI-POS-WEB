@@ -1,0 +1,238 @@
+/* BF Omni POS — Signature Edition v2
+   Non-invasive visual refinement; applies to the marketing landing page only.
+   Uses CSS-only effects, honors reduced-motion preferences. */
+.lp-root{
+  --lp-bg:#090b10;
+  --lp-surface:#12151b;
+  --lp-surface-2:#191c23;
+  --lp-line:#353332;
+  --lp-muted:#b0b1b7;
+  --lp-gold:#dcb878;
+  --lp-gold-light:#f6d79c;
+  --lp-cream:#fbf8f2;
+  background:#090b10;
+  color:#fbf8f2;
+  -webkit-font-smoothing:antialiased;
+}
+.lp-root::selection{background:#8d6c35;color:#fff}
+.lp-root .lp-container{width:min(1280px,calc(100% - 88px))}
+.lp-root .lp-announcement{
+  background:linear-gradient(95deg,#171718 0%,#392a1c 48%,#171718 100%);
+  border-bottom-color:rgba(231,190,121,.21);
+  color:#f0d9b3;
+  letter-spacing:.045em;
+}
+.lp-root .lp-announcement-pulse{background:#dfb76f;box-shadow:0 0 0 4px rgba(225,179,99,.12),0 0 18px rgba(232,190,109,.3)}
+.lp-root .lp-header{
+  background:rgba(9,11,16,.87);
+  box-shadow:0 18px 50px rgba(0,0,0,.12);
+  border-bottom-color:rgba(228,196,144,.12);
+  -webkit-backdrop-filter:blur(25px) saturate(145%);
+  backdrop-filter:blur(25px) saturate(145%);
+}
+.lp-root .lp-brand-symbol{
+  background:linear-gradient(145deg,#fff0bf 0%,#deb875 40%,#b48a49 100%);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.55),0 0 0 1px rgba(239,203,143,.2),0 12px 35px rgba(178,132,61,.13);
+  border-radius:13px;
+}
+.lp-root .lp-brand-text strong{letter-spacing:.025em}
+.lp-root .lp-nav>a{position:relative}
+.lp-root .lp-nav>a:not(.lp-mobile-login)::after{
+  content:"";position:absolute;bottom:-12px;left:0;right:0;height:1px;
+  transform:scaleX(0);transform-origin:left;background:#deb579;
+  transition:transform .25s ease;
+}
+.lp-root .lp-nav>a:hover::after,.lp-root .lp-nav>a:focus-visible::after{transform:scaleX(1)}
+.lp-root .lp-button{
+  border-radius:11px;
+  min-height:52px;
+  letter-spacing:.025em;
+  transition:transform .22s ease,box-shadow .22s ease,background .22s ease,border-color .22s ease;
+}
+.lp-root .lp-button-gold{
+  color:#211b12;
+  background:linear-gradient(120deg,#ffedba 0%,#efcc87 48%,#dca75d 100%);
+  border:1px solid rgba(255,244,204,.7);
+  box-shadow:inset 0 1px rgba(255,255,255,.52),0 17px 34px rgba(193,138,65,.17);
+}
+.lp-root .lp-button-gold:hover{box-shadow:inset 0 1px rgba(255,255,255,.6),0 22px 44px rgba(192,136,63,.31)}
+.lp-root .lp-button-outline{
+  background:linear-gradient(145deg,rgba(255,255,255,.075),rgba(255,255,255,.018));
+  border:1px solid rgba(243,214,167,.3);
+}
+.lp-root .lp-hero{
+  background:
+    radial-gradient(ellipse at 76% 34%,rgba(169,122,69,.25) 0%,transparent 41%),
+    radial-gradient(ellipse at 8% 18%,rgba(100,79,59,.14) 0%,transparent 40%),
+    linear-gradient(160deg,#12161c 0%,#090b10 57%,#12110f 100%);
+  border-bottom:1px solid rgba(230,191,126,.13);
+}
+.lp-root .lp-hero::before{
+  content:"";position:absolute;right:-12%;top:-18%;width:680px;height:680px;border-radius:50%;
+  border:1px solid rgba(241,210,154,.085);
+  box-shadow:0 0 0 90px rgba(221,182,114,.013),0 0 0 180px rgba(221,182,114,.008);
+  pointer-events:none;
+}
+.lp-root .lp-hero::after{
+  content:"";position:absolute;bottom:0;left:6%;right:6%;height:1px;pointer-events:none;
+  background:linear-gradient(90deg,transparent,rgba(237,194,114,.35),transparent)
+}
+.lp-root .lp-hero-noise{opacity:.42;background-size:50px 50px}
+.lp-root .lp-hero-layout{min-height:704px;padding-top:78px;padding-bottom:70px;grid-template-columns:47% 53%}
+.lp-root .lp-eyebrow{
+  letter-spacing:.155em;color:#edce9a;gap:12px;
+  font-weight:800;font-size:10px;
+}
+.lp-root .lp-eyebrow>span{background:rgba(226,175,100,.08);border-color:rgba(240,190,103,.32);border-radius:50%}
+.lp-root .lp-hero h1{
+  max-width:680px;
+  font-size:clamp(47px,4.65vw,77px);
+  font-weight:900;
+  line-height:1.095;
+  letter-spacing:-.063em;
+  text-wrap:balance;
+  text-shadow:0 4px 30px rgba(0,0,0,.13);
+}
+.lp-root .lp-hero h1>span{
+  background:linear-gradient(100deg,#fff0c7 0%,#e4b874 58%,#b88e52 100%);
+  background-clip:text;-webkit-background-clip:text;
+}
+.lp-root .lp-hero-description{font-size:15.5px;color:#c1c0c0;line-height:1.9;max-width:470px}
+.lp-root .lp-hero-points{border-top:1px solid rgba(231,203,156,.14);padding-top:24px;margin-top:32px}
+.lp-root .lp-hero-footer{letter-spacing:.19em;color:#9e9587}
+.lp-root .lp-product-stage{filter:drop-shadow(0 15px 30px rgba(0,0,0,.15))}
+.lp-root .lp-preview-window{
+  background:#171920;
+  border:1px solid rgba(246,206,137,.43);
+  border-radius:18px;
+  box-shadow:
+    0 46px 100px rgba(0,0,0,.57),
+    0 0 0 7px rgba(255,255,255,.03),
+    0 0 70px rgba(188,129,46,.105);
+  transform:perspective(1300px) rotateY(-4deg) rotateX(1deg);
+}
+.lp-root .lp-preview-topbar{
+  background:linear-gradient(90deg,#202229,#22201e);
+  border-bottom-color:rgba(234,197,135,.18);
+}
+.lp-root .lp-floating-ticket{
+  background:linear-gradient(120deg,rgba(37,37,40,.97),rgba(29,31,38,.97));
+  border:1px solid rgba(243,207,152,.32);
+  box-shadow:0 28px 50px rgba(0,0,0,.38),0 0 45px rgba(229,184,111,.08);
+  -webkit-backdrop-filter:blur(14px);
+  backdrop-filter:blur(14px);
+}
+.lp-root .lp-benefits{
+  background:linear-gradient(100deg,#13151a,#191819 49%,#111317);
+  border-block:1px solid rgba(232,199,145,.11);
+}
+.lp-root .lp-benefit-icon{
+  border:1px solid rgba(236,194,116,.23);
+  background:linear-gradient(145deg,rgba(233,190,105,.13),rgba(233,190,105,.025));
+}
+.lp-root .lp-section-label{
+  color:#eac88e;
+  letter-spacing:.19em;
+}
+.lp-root .lp-section-label .lp-section-line{background:linear-gradient(90deg,#a37e42,#f3cf91)}
+.lp-root .lp-section-intro h2,
+.lp-root .lp-workflow h2,
+.lp-root .lp-faq h2{
+  letter-spacing:-.055em;
+  text-wrap:balance;
+}
+.lp-root .lp-feature-card{
+  background:linear-gradient(145deg,#1b1d23 0%,#15171d 65%,#15161c 100%);
+  border:1px solid rgba(233,198,146,.14);
+  border-radius:17px;
+  box-shadow:inset 0 1px rgba(255,255,255,.027),0 10px 40px rgba(0,0,0,.09);
+  transition:transform .25s ease,border-color .25s ease,box-shadow .25s ease;
+}
+.lp-root .lp-feature-card:hover{
+  transform:translateY(-7px);
+  border-color:rgba(235,187,111,.45);
+  box-shadow:0 23px 50px rgba(0,0,0,.25),0 0 28px rgba(201,154,75,.07);
+}
+.lp-root .lp-feature-icon{
+  background:linear-gradient(130deg,rgba(232,187,103,.17),rgba(232,187,103,.045));
+  border:1px solid rgba(236,199,129,.26);
+}
+.lp-root .lp-workflow-art{
+  border:1px solid rgba(233,191,128,.25);
+  background:linear-gradient(140deg,#1e2026,#18191e);
+  box-shadow:0 35px 70px rgba(0,0,0,.18),inset 0 1px rgba(255,255,255,.04);
+  border-radius:19px;
+}
+.lp-root .lp-workflow-chip{
+  border-color:rgba(238,203,140,.17);
+  background:rgba(255,255,255,.035);
+}
+.lp-root .lp-pricing{
+  background:
+    radial-gradient(ellipse at 50% -10%,rgba(190,139,68,.14),transparent 50%),
+    #101217;
+}
+.lp-root .lp-pricing-card{
+  border-radius:19px;
+  background:linear-gradient(150deg,#1d1e24,#15171c);
+  border:1px solid rgba(238,209,167,.18);
+  box-shadow:0 20px 55px rgba(0,0,0,.11);
+  transition:transform .24s ease,border-color .24s ease;
+}
+.lp-root .lp-pricing-card:hover{
+  transform:translateY(-5px);
+  border-color:rgba(241,205,140,.45);
+}
+.lp-root .lp-pricing-featured{
+  background:linear-gradient(153deg,#29231d 0%,#23211e 28%,#1a1b20 100%);
+  border-color:rgba(249,213,150,.6);
+  box-shadow:0 22px 65px rgba(0,0,0,.24),0 0 0 1px rgba(239,198,126,.05);
+}
+.lp-root .lp-pricing-badge{
+  background:linear-gradient(100deg,#f7d99b,#d6a459);
+  color:#282016;
+  box-shadow:0 8px 26px rgba(216,164,87,.13);
+}
+.lp-root .lp-final-cta{
+  border:1px solid rgba(244,203,132,.28);
+  background:
+    radial-gradient(circle at 83% 44%,rgba(223,166,82,.2),transparent 43%),
+    linear-gradient(120deg,#1e1d1c,#28221c 54%,#15171d);
+  box-shadow:0 35px 95px rgba(0,0,0,.24);
+  border-radius:21px;
+}
+.lp-root .lp-footer{background:linear-gradient(180deg,#101216,#0b0d10)}
+.lp-root .lp-footer-bottom{border-top-color:rgba(229,193,135,.15)}
+@media(min-width:1100px) and (prefers-reduced-motion:no-preference){
+  .lp-root .lp-hero-copy{animation:bfPremHero .7s cubic-bezier(.22,.6,.34,1) both}
+  .lp-root .lp-product-stage{animation:bfPremHero .9s .12s cubic-bezier(.22,.6,.34,1) both}
+}
+@keyframes bfPremHero{from{opacity:.65;transform:translateY(15px)}to{opacity:1;transform:translateY(0)}}
+@media(max-width:1040px){
+  .lp-root .lp-container{width:min(100% - 48px,1280px)}
+  .lp-root .lp-hero-layout{min-height:0}
+  .lp-root .lp-hero h1{font-size:clamp(43px,5.4vw,64px)}
+}
+@media(max-width:760px){
+  .lp-root .lp-container{width:calc(100% - 36px)}
+  .lp-root .lp-hero-layout{padding-top:54px;padding-bottom:34px}
+  .lp-root .lp-hero h1{font-size:clamp(43px,8vw,60px)}
+  .lp-root .lp-preview-window{transform:none;border-radius:13px}
+  .lp-root .lp-product-stage{filter:none}
+  .lp-root .lp-feature-card:hover,.lp-root .lp-pricing-card:hover{transform:none}
+  .lp-root .lp-hero::before{width:300px;height:300px;right:-30%;top:8%}
+  .lp-root .lp-nav>a::after{display:none}
+}
+@media(max-width:490px){
+  .lp-root .lp-container{width:calc(100% - 32px)}
+  .lp-root .lp-hero h1{font-size:clamp(38px,10vw,49px);letter-spacing:-.052em}
+  .lp-root .lp-hero-description{font-size:13px;line-height:1.8}
+  .lp-root .lp-announcement{letter-spacing:0}
+  .lp-root .lp-benefits-row{gap:15px}
+  .lp-root .lp-feature-card,.lp-root .lp-pricing-card{border-radius:15px}
+  .lp-root .lp-final-cta{border-radius:16px}
+}
+@media(prefers-reduced-motion:reduce){
+  .lp-root .lp-hero-copy,.lp-root .lp-product-stage{animation:none!important}
+  .lp-root .lp-feature-card,.lp-root .lp-pricing-card{transition:none!important}
+}
