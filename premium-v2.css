@@ -236,3 +236,11 @@
   .lp-root .lp-hero-copy,.lp-root .lp-product-stage{animation:none!important}
   .lp-root .lp-feature-card,.lp-root .lp-pricing-card{transition:none!important}
 }
+
+/* BF Omni POS public bridge: unify older compiled portal typography with V3 marketing.
+   The secure V4 source remains in the private repository until compiled release. */
+.staff-shell,.admin-shell,.workspace,.ops-root{font-family:'DM Sans',system-ui,-apple-system,sans-serif!important}
+.staff-shell :is(h1,h2,h3),.admin-shell :is(h1,h2,h3),
+.workspace :is(h1,h2,h3),.ops-root :is(h1,h2,h3){font-family:'Manrope','DM Sans',system-ui,sans-serif}
+.staff-shell :is(button,a,input,select),.admin-shell :is(button,a,input,select),
+.workspace :is(button,a,input,select){touch-action:manipulation}
