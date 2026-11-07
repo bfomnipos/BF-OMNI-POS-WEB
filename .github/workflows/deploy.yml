@@ -1,4 +1,4 @@
-name: Publish BF Omni POS website preview
+name: Publish BF Omni POS compiled React frontend
 on:
   push:
     branches: [main]
@@ -15,13 +15,22 @@ concurrency:
 
 jobs:
   deploy:
-    name: Publish the static preview
+    name: Publish the BF Omni POS React portal
     runs-on: ubuntu-latest
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: site
+      - name: Check compiled React portal
+        run: |
+          test -s index.html
+          test -s CNAME
+          grep -qx 'www.bfomnipos.com' CNAME
+          test -s legacy/app.html
+          test -n "$(find assets -name '*.js' -print -quit)"
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:
