@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+Disallow: /*?portal=admin
+Disallow: /*?portal=staff
+Disallow: /*?portal=preview
+
+Sitemap: https://www.bfomnipos.com/sitemap.xml
