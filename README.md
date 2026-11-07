@@ -1,24 +1,35 @@
 # BF Omni POS — Public Website Hosting
 
-The **latest compiled React frontend** is already available on the `site` branch. This public repository contains compiled website assets; the private source code, backend SQL and secrets remain in the separate private repository.
+This public repository contains **only compiled website assets** on the `site` branch. The React/TypeScript source, backend SQL, and sensitive infrastructure configuration remain private in a separate source repository.
 
-## Latest verified build
-- `site/index.html`: BF Omni POS React website.
-- `site/assets/`: React JavaScript and CSS bundle.
-- `site/legacy/app.html`: original POS demo preview.
-- `site/CNAME`: `www.bfomnipos.com`.
-- Public GitHub Actions import of the compiled frontend completed successfully. Site file verification passed.
+## Website — current deployment
 
-## One-time setup required to make website live
+- **Primary domain:** [www.bfomnipos.com](https://www.bfomnipos.com/)
+- **GitHub Pages source:** `site` branch → `/(root)` (Deploy from a branch)
+- **Homepage:** Premium BF Omni POS dark-and-gold marketing landing page
+- **Portal paths:** `?portal=staff` restaurant sign-in; `?portal=admin` allowlisted Super Admin; `?portal=preview` sample dashboard
+- **Compiled build:** `site/index.html`, `site/assets/`, `site/legacy/`
+- **Custom-domain record:** `site/CNAME` contains `www.bfomnipos.com`
 
-GitHub Pages is **not yet enabled** for this repository. Configure:
-1. Open [Pages Settings](https://github.com/bfomnipos/BF-OMNI-POS-WEB/settings/pages).
-2. Under **Build and deployment**, set **Source → GitHub Actions**.
-3. Under **Custom domain**, set **www.bfomnipos.com** and save. Namecheap needs `CNAME www → bfomnipos.github.io`.
-4. Rerun the [Publish BF Omni POS compiled React frontend](https://github.com/bfomnipos/BF-OMNI-POS-WEB/actions) workflow. Its YAML is on `main` but deploys compiled assets from the `site` branch.
-5. Verify the browser can open `https://www.bfomnipos.com` and the `?portal=staff` / `?portal=admin` routes, then enable **Enforce HTTPS** when available.
+The latest Landing Page build was uploaded to `site`; the GitHub Pages deployment completed successfully on 7 November 2026.
 
-GitHub Pages must be enabled by someone with appropriate repository Settings access. GitHub's connected file tools cannot change GitHub Pages configuration directly.
+## DNS and HTTPS checks
 
-## Important
-This is a development preview, **not yet a production-ready restaurant POS**. Real payments, complete printer flows and end-to-end live authentication tests are still pending.
+Namecheap should contain `CNAME` Host `www`, Value `bfomnipos.github.io`, plus GitHub Pages apex A records if also using `bfomnipos.com` without `www`.
+
+Pages deployment success does not itself confirm DNS propagation or HTTPS certificate readiness. Check the [Pages settings](https://github.com/bfomnipos/BF-OMNI-POS-WEB/settings/pages) for custom-domain status and **Enforce HTTPS**.
+
+The public `site` branch is a compiled deployment artifact; **do not push private source files or service-role keys**.
+
+## Updating the website
+
+1. Edit and build the private BF Omni POS React frontend.
+2. Confirm the frontend typecheck and staging build succeed.
+3. Transfer the verified compiled staging ZIP to the public `site` branch.
+4. GitHub Pages automatically republishes each new `site` branch commit.
+
+The old GitHub Actions-based Pages workflow was retired in favor of the activated `site`-branch deployment method.
+
+## Development stage
+
+The landing page is public marketing content. Real payments, receipt printing and final end-to-end login/billing tests remain pending. The dashboard preview shows sample, not real, restaurant figures.
