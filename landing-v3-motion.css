@@ -227,3 +227,29 @@
  }
  .v3-root.v3-motion-ready .v3-scroll-reveal{opacity:1!important;transform:none!important}
 }
+
+/* Small phones (320-390px): keep brand, menu, and booking CTA inside viewport. */
+@media(max-width:390px){
+ .v3-nav-row{gap:6px}
+ .v3-logo{gap:5px}
+ .v3-logo-mark{width:34px;height:34px;line-height:34px;font-size:18px}
+ .v3-logo-type{font-size:14px;letter-spacing:-.06em}
+ .v3-nav-actions .v3-btn{font-size:0!important;padding:10px;min-width:42px;min-height:42px}
+ .v3-nav-actions .v3-btn svg{width:19px;height:19px}
+ .v3-nav-actions .v3-btn svg:last-child{display:none}
+ .v3-menu-toggle{min-width:42px}
+ .v3-hero h1{font-size:clamp(32px,9.2vw,38px)}
+ .v3-hero-buttons{grid-template-columns:1fr;gap:9px}
+ .v3-hero-buttons .v3-btn{font-size:12px;min-height:45px}
+}
+.v3-root.v3-motion-ready .v3-feature-card.v3-scroll-reveal.v3-in-view:hover{
+ transform:translateY(-4px);
+}
+@media(max-width:680px){
+ .v3-feature-card:hover{transform:none}
+ .v3-root.v3-motion-ready .v3-feature-card.v3-scroll-reveal.v3-in-view:hover{transform:none}
+ .v3-root .v3-price-card.featured{animation:none;box-shadow:0 0 0 2px rgba(232,177,76,.25),0 20px 36px #0009}
+}
+@media(prefers-reduced-motion:reduce){
+ .v3-root.v3-motion-ready .v3-feature-card.v3-scroll-reveal.v3-in-view:hover{transform:none!important}
+}
