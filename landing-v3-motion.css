@@ -1,0 +1,229 @@
+/* BF Omni POS V3.1 — Mobile-first premium motion and layout correction.
+   Progressive enhancement; product and demo forms remain real controls. */
+
+/* Refined premium effects */
+.v3-root {scroll-behavior:smooth;}
+.v3-root section[id]{scroll-margin-top:84px;}
+.v3-header{transition:background-color .28s ease,box-shadow .28s ease,border-color .28s ease;}
+.v3-header.v3-header-scrolled{background:rgba(6,7,9,.985);box-shadow:0 17px 50px rgba(0,0,0,.65);border-bottom-color:rgba(246,195,96,.38);}
+.v3-logo-mark{position:relative;overflow:hidden;}
+.v3-logo-mark::after{content:"";position:absolute;inset:-30% -90%;pointer-events:none;
+ background:linear-gradient(110deg,transparent 39%,rgba(255,255,255,.5) 50%,transparent 61%);
+ transform:translateX(-120%);animation:v3-logo-shine 11s ease-in-out infinite;}
+.v3-btn{position:relative;isolation:isolate;overflow:hidden;}
+.v3-btn::after{content:"";position:absolute;top:-90%;bottom:-90%;width:32%;
+ left:-65%;transform:skewX(-24deg);pointer-events:none;
+ background:linear-gradient(90deg,transparent,rgba(255,255,255,.29),transparent);}
+.v3-btn:hover::after{animation:v3-button-sweep .8s ease-out both;}
+.v3-btn:active{transform:translateY(0) scale(.985)}
+.v3-hero-backdrop{animation:v3-background-zoom 18s ease-in-out alternate infinite;transform-origin:center;}
+.v3-hero-copy .v3-region-tag{animation:v3-entry .65s cubic-bezier(.18,.72,.24,1) both;}
+.v3-hero-copy h1{animation:v3-entry .75s .11s cubic-bezier(.18,.72,.24,1) both;}
+.v3-hero-copy>p:not(.v3-hero-disclaimer){animation:v3-entry .8s .22s cubic-bezier(.18,.72,.24,1) both;}
+.v3-hero-buttons{animation:v3-entry .8s .32s cubic-bezier(.18,.72,.24,1) both;}
+.v3-benefits-inline{animation:v3-entry .8s .43s cubic-bezier(.18,.72,.24,1) both;}
+.v3-stage{animation:v3-stage-reveal .95s .28s cubic-bezier(.14,.8,.25,1) both;}
+.v3-stage-glow{animation:v3-glow-breathe 5s ease-in-out infinite alternate;}
+.v3-stage-float{animation:v3-badge-float 5s ease-in-out infinite;}
+.v3-hero::before{animation:v3-glow-breathe 8s ease-in-out infinite alternate;}
+.v3-graph svg path[stroke="#f7c961"]{stroke-dasharray:900;stroke-dashoffset:900;animation:v3-draw-chart 2.2s 1s ease-out forwards;}
+.v3-graph svg circle{animation:v3-graph-pulse 2.6s ease-in-out infinite;}
+.v3-price-card.featured{animation:v3-featured-pulse 5s ease-in-out infinite alternate;}
+.v3-price-card:hover{border-color:rgba(250,205,124,.73);box-shadow:0 18px 46px #0009,0 0 25px rgba(211,152,49,.12);transition:box-shadow .26s ease,border-color .26s ease;}
+.v3-feature-card{isolation:isolate;overflow:hidden;--spot-x:50%;--spot-y:50%;}
+.v3-feature-card::before{content:"";position:absolute;inset:0;z-index:-1;opacity:0;pointer-events:none;
+ background:radial-gradient(260px circle at var(--spot-x) var(--spot-y),
+ rgba(248,201,113,.14),transparent 65%);transition:opacity .35s ease;}
+.v3-feature-card:hover::before{opacity:1;}
+.v3-feature-card:hover .v3-feature-icon{transform:translateY(-2px) rotate(-3deg);
+ box-shadow:0 0 22px rgba(240,172,61,.23);border-color:#b48844;}
+.v3-feature-icon{transition:transform .25s ease,box-shadow .25s ease,border-color .25s ease;}
+.v3-price-card,.v3-demo-form{transition:border-color .35s ease,box-shadow .35s ease;}
+.v3-price-card:not(.featured):hover{transform:translateY(-5px);}
+.v3-demo-form:focus-within{box-shadow:0 27px 68px #0009,0 0 0 1px rgba(251,211,139,.2);}
+.v3-root.v3-motion-ready .v3-scroll-reveal{opacity:0;transform:translate3d(0,30px,0);
+ transition:opacity .75s cubic-bezier(.18,.65,.28,1),
+ transform .75s cubic-bezier(.18,.65,.28,1);
+ transition-delay:var(--reveal-delay,0ms);}
+.v3-root.v3-motion-ready .v3-scroll-reveal.v3-in-view{opacity:1;transform:translate3d(0,0,0);}
+.v3-terminal-food button:active{transform:scale(.97);}
+.v3-terminal-food button{touch-action:manipulation;}
+.v3-root button,.v3-root a{touch-action:manipulation;}
+.v3-product-btn[hidden]{display:none!important;} /* Critical: preserve category filter on grid buttons */
+
+@keyframes v3-entry{from{opacity:0;transform:translate3d(0,22px,0)}to{opacity:1;transform:translate3d(0,0,0)}}
+@keyframes v3-stage-reveal{from{opacity:0;transform:translate3d(0,30px,0) scale(.97)}
+ to{opacity:1;transform:translate3d(0,0,0) scale(1)}}
+@keyframes v3-logo-shine{0%,79%,100%{transform:translateX(-130%)}88%{transform:translateX(190%)}}
+@keyframes v3-button-sweep{from{left:-65%}to{left:140%}}
+@keyframes v3-background-zoom{from{transform:scale(1)}to{transform:scale(1.055)}}
+@keyframes v3-glow-breathe{from{opacity:.55}to{opacity:1}}
+@keyframes v3-badge-float{0%,100%{translate:0 0}50%{translate:0 -7px}}
+@keyframes v3-draw-chart{to{stroke-dashoffset:0}}
+@keyframes v3-graph-pulse{0%,100%{opacity:.7}50%{opacity:1}}
+@keyframes v3-featured-pulse{from{box-shadow:0 0 0 2px rgba(232,177,76,.22),0 0 25px rgba(222,151,49,.13),0 26px 45px #000a}
+ to{box-shadow:0 0 0 2px rgba(232,177,76,.34),0 0 50px rgba(222,151,49,.34),0 26px 45px #000a}}
+
+/* Tablet: keep sample device legible and prevent breakpoint scale overflow. */
+@media (min-width:681px) and (max-width:980px){
+ .v3-stage{max-width:710px;margin-inline:auto}
+ .v3-stage .v3-terminal{width:96%;max-width:680px;min-width:0}
+ .v3-hero-copy{max-width:760px}
+ .v3-hero-buttons{gap:12px}
+ .v3-terminal-food img{height:70px}
+ .v3-terminal-cart{min-width:0}
+ .v3-insights-copy{max-width:650px}
+}
+@media (min-width:681px) and (max-width:840px){
+ .v3-insights-layout{grid-template-columns:1fr;gap:40px}
+ .v3-analytics-device{max-width:620px;margin-inline:auto;width:100%}
+ .v3-insights-copy{max-width:640px;margin-inline:auto}
+ .v3-price-card li{font-size:11px}
+ .v3-demo-layout{grid-template-columns:1fr;gap:34px}
+ .v3-demo-copy{max-width:630px}
+}
+
+/* Phone: eliminate old scaled 560px desktop checkout — real 100%-width layouts. */
+@media(max-width:680px){
+ .v3-root{font-size:14px}
+ .v3-header{height:68px}
+ .v3-nav-row{gap:9px}
+ .v3-nav{top:68px;max-height:calc(100dvh - 68px);overflow-y:auto}
+ .v3-logo{gap:7px}
+ .v3-nav-actions{gap:8px}
+ .v3-nav-actions .v3-btn{font-size:11px!important;min-height:40px;min-width:0;gap:6px;padding:9px 11px}
+ .v3-nav-actions .v3-btn svg:last-child{display:none}
+ .v3-menu-toggle{min-height:42px;min-width:42px;padding:7px}
+ .v3-hero{min-height:0}
+ .v3-hero-content{display:flex;flex-direction:column;align-items:stretch;padding:33px 0 40px;gap:0}
+ .v3-hero-backdrop{background-position:center right}
+ .v3-hero-copy{max-width:none;width:100%}
+ .v3-hero h1{font-size:clamp(35px,8.4vw,53px);line-height:1.1;letter-spacing:-.052em;
+  margin:19px 0 14px;max-width:550px;overflow-wrap:normal}
+ .v3-region-tag{font-size:10px;line-height:1.4}
+ .v3-hero-copy>p:not(.v3-hero-disclaimer){font-size:13.5px;line-height:1.72;max-width:500px}
+ .v3-hero-buttons{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin:21px 0 15px}
+ .v3-hero-buttons .v3-btn{white-space:normal;font-size:11px;line-height:1.25;
+  padding:13px 8px;text-align:center;min-height:48px;gap:5px}
+ .v3-hero-buttons .v3-btn svg{width:15px;flex:none}
+ .v3-benefits-inline{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px 6px;margin:18px 0 0}
+ .v3-benefits-inline span{font-size:10px;white-space:normal;line-height:1.4}
+ .v3-hero-disclaimer{font-size:10px;line-height:1.55;margin-top:16px!important}
+ /* A true mobile POS panel instead of shrinking the entire desktop machine. */
+ .v3-stage{position:relative;display:flex;flex-direction:column;align-items:stretch;justify-content:flex-start;
+  transform:none!important;animation:v3-stage-reveal .8s .3s ease-out both;
+  margin:22px 0 0!important;padding:0!important;width:100%!important;height:auto!important;min-height:0}
+ .v3-terminal{transform:none!important;position:relative;margin:0!important;
+  min-width:0!important;max-width:none!important;width:100%!important;height:auto!important;
+  filter:drop-shadow(0 23px 28px rgba(0,0,0,.49))}
+ .v3-terminal-shell{border:1px solid #e3b96d;border-radius:15px;padding:9px 9px 11px;
+  height:auto!important;box-shadow:0 0 0 2px #090a0c,0 0 0 3px rgba(244,193,111,.18),inset 0 2px 3px rgba(255,230,175,.38)}
+ .v3-terminal-top{height:28px;padding:0 3px 8px}
+ .v3-terminal-caption{font-size:7px;letter-spacing:.05em}
+ .v3-terminal-main{display:flex!important;flex-direction:column;
+  width:100%;height:auto!important;min-height:0;overflow:hidden;border-radius:9px}
+ .v3-terminal-sidebar{display:none!important}
+ .v3-terminal-products{width:100%;min-width:0;padding:12px}
+ .v3-terminal-h{margin-bottom:9px}
+ .v3-terminal-h strong{font-size:13px}
+ .v3-terminal-h span{font-size:10px}
+ .v3-terminal-tabs{gap:6px;overflow-x:auto;margin:0 0 12px;padding-bottom:3px}
+ .v3-terminal-tabs button{font-size:10px;padding:8px 10px;min-height:34px;white-space:nowrap}
+ .v3-terminal-food{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px}
+ .v3-terminal-food button{width:100%;min-width:0;max-width:100%;padding-bottom:9px;min-height:113px}
+ .v3-terminal-food img{height:70px;min-height:0}
+ .v3-terminal-food strong{font-size:10px;line-height:1.25;margin:7px 6px 3px;
+   overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+ .v3-terminal-food button>span{font-size:10px;margin:0 6px}
+ .v3-terminal-cart{border-left:0;border-top:1px solid #46403a;width:100%;min-width:0}
+ .v3-cart-title{display:flex;flex-direction:row;justify-content:space-between;align-items:center;padding:11px 13px}
+ .v3-cart-title strong{font-size:12px}.v3-cart-title small{font-size:10px}
+ .v3-cart-items{padding:3px 12px;max-height:115px;min-height:52px;overflow:auto}
+ .v3-cart-items>div{padding:7px 0;align-items:center}
+ .v3-cart-items>div>span,.v3-cart-items strong{font-size:10px}
+ .v3-cart-items>div>div{flex-direction:row;align-items:center;gap:12px}
+ .v3-cart-items button{width:28px;height:27px}
+ .v3-cart-bottom{padding:11px 13px}
+ .v3-cart-bottom>span{font-size:10px}
+ .v3-cart-bottom b{font-size:11px}.v3-cart-bottom strong{font-size:14px}
+ .v3-cart-action{font-size:11px;min-height:40px;padding:11px}
+ .v3-terminal-bezel,.v3-terminal-neck,.v3-terminal-base,.v3-printer{display:none!important}
+ .v3-stage-float{position:relative;right:auto!important;bottom:auto!important;align-self:flex-end;
+  margin:11px 2px 0;padding:8px 10px;box-shadow:0 5px 17px #0008}
+ .v3-stage-note{position:static;margin:7px 0 0;text-align:center;font-size:9px;line-height:1.4}
+ .v3-stage-glow{width:100%;height:60%;top:6%;right:0}
+ /* Mobile marketing: text you can actually read, no 9px feature cards. */
+ .v3-section{padding:46px 0}
+ .v3-section-head h2{font-size:clamp(27px,6vw,34px);line-height:1.25}
+ .v3-section-head p{font-size:13px}
+ .v3-feature-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:11px;margin-top:23px}
+ .v3-feature-card,.v3-feature-card:nth-child(-n+3){grid-column:auto;min-height:155px;
+  padding:15px 12px;gap:8px}
+ .v3-feature-card h3{font-size:13px;margin-bottom:5px}
+ .v3-feature-card p{font-size:11px;line-height:1.5}
+ .v3-feature-icon{width:46px;height:46px;border-radius:12px}
+ .v3-feature-foot{font-size:10px;line-height:1.55}
+ .v3-insights{padding:48px 0}
+ .v3-insights-layout{display:flex;flex-direction:column;gap:36px}
+ .v3-insights-copy{width:100%;padding:0}
+ .v3-insights-copy h2{font-size:clamp(30px,7.5vw,40px)}
+ .v3-insights-copy p{font-size:13px}
+ .v3-insights-copy li{font-size:12px;line-height:1.5}
+ .v3-analytics-device{width:100%;max-width:540px;margin:0 auto;overflow:visible}
+ .v3-laptop{padding:0 3%}
+ .v3-laptop-body{grid-template-columns:1fr;min-height:0}
+ .v3-laptop-body aside{display:none}
+ .v3-laptop-main{padding:13px 11px 12px}
+ .v3-laptop-title{margin-bottom:12px}
+ .v3-laptop-title strong{font-size:13px}
+ .v3-laptop-metrics>div{padding:11px 7px}
+ .v3-laptop-metrics small{font-size:9px;white-space:normal}
+ .v3-laptop-metrics strong{font-size:clamp(12px,3.35vw,18px)}
+ .v3-laptop-metrics span{font-size:9px}
+ .v3-graph svg{height:120px}
+ .v3-pricing-grid{gap:24px}
+ .v3-price-card{padding:23px 20px}
+ .v3-price-amount strong{font-size:43px}
+ .v3-price-card li{font-size:12px}
+ .v3-type-row span{min-height:42px;font-size:12px}
+ .v3-demo-layout{display:flex;flex-direction:column;align-items:stretch;gap:25px}
+ .v3-demo-copy h2{font-size:clamp(34px,8vw,43px)}
+ .v3-demo-copy>p{font-size:13px;line-height:1.7}
+ .v3-demo-form{padding:20px 17px}
+ .v3-form-head h3{font-size:21px}
+ .v3-form-grid{grid-template-columns:1fr;gap:13px}
+ .v3-demo-form label:not(.v3-form-consent):not(.v3-honeypot){font-size:12px}
+ .v3-demo-form input:not([type=checkbox]),.v3-demo-form select,.v3-demo-form textarea{font-size:16px;min-height:47px}
+ .v3-footer{padding:44px 0 18px}
+ .v3-footer-main{gap:23px}
+ .v3-footer-main>div>a:not(.v3-logo){font-size:12px}
+}
+@media(max-width:420px){
+ .v3-container{width:calc(100% - 28px)}
+ .v3-nav-actions .v3-btn{font-size:10px!important;padding:9px}
+ .v3-hero h1{font-size:clamp(34px,8.7vw,40px)}
+ .v3-hero-buttons .v3-btn{font-size:10px}
+ .v3-terminal-food{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+ .v3-terminal-food img{height:85px}
+ .v3-terminal-food button{min-height:130px}
+ .v3-terminal-food strong,.v3-terminal-food button>span{font-size:11px}
+ .v3-feature-grid{grid-template-columns:1fr}
+ .v3-feature-card,.v3-feature-card:nth-child(-n+3){min-height:0;display:flex;flex-direction:row;
+  align-items:center;padding:16px 15px;gap:13px}
+ .v3-feature-card h3{font-size:14px;margin:0 0 5px}
+ .v3-feature-card p{font-size:12px}
+ .v3-feature-icon{width:53px;height:53px;flex:none}
+ .v3-benefits-inline span{font-size:9.5px}
+ .v3-laptop-metrics>div{padding:9px 6px}
+ .v3-laptop-metrics small{font-size:8px}
+ .v3-laptop-metrics strong{font-size:12px}
+ .v3-footer-main{grid-template-columns:1fr 1fr}
+}
+/* Respect accessibility preferences and avoid delayed invisible content. */
+@media(prefers-reduced-motion:reduce){
+ .v3-root,.v3-root *{scroll-behavior:auto!important}
+ .v3-root *, .v3-root *::before,.v3-root *::after{
+  animation:none!important;transition:none!important;translate:none!important;
+ }
+ .v3-root.v3-motion-ready .v3-scroll-reveal{opacity:1!important;transform:none!important}
+}
