@@ -1,0 +1,42 @@
+name: Import compiled BF Omni POS frontend
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/import-compiled-site.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  import-compiled-site:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Fetch verified compiled frontend ZIP
+        env:
+          ARTIFACT_URL: "https://sdmntprindiasocentral.oaiusercontent.com/files/00000000-4b94-8211-8a56-3fae1f5f75ab/raw?se=2026-11-07T14%3A46%3A29Z&sp=r&sv=2026-02-06&sr=b&scid=102d649e-8002-546b-8420-3909c1ada1e0&skoid=ca37c3ec-ab43-496e-be5f-4684c5519a26&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2026-11-07T01%3A38%3A47Z&ske=2026-11-08T01%3A38%3A47Z&sks=b&skv=2026-02-06&sig=89s13/KhROE9wmF6nO3cinr/yValwNvPq8VN9n4hG/U%3D"
+        run: |
+          set -euo pipefail
+          mkdir -p site-out
+          curl -fLsS --retry 3 --max-time 120 "$ARTIFACT_URL" -o /tmp/bf-frontend.zip
+          unzip -tq /tmp/bf-frontend.zip
+          unzip -q /tmp/bf-frontend.zip -d site-out
+          test -s site-out/index.html
+          test -s site-out/legacy/app.html
+          grep -qx 'www.bfomnipos.com' site-out/CNAME
+      - name: Push compiled site only to public branch
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          cd site-out
+          touch .nojekyll
+          git init
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git config user.name "github-actions[bot]"
+          git checkout -b site
+          git add -A
+          git commit -m "Deploy compiled BF Omni POS frontend"
+          git remote add origin "https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
+          git push --force origin site
