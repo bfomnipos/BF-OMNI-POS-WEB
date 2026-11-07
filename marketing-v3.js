@@ -104,4 +104,39 @@
    }finally{pending=false;if(button){button.disabled=false;button.style.opacity=''}}
   });
  }
+ // Enhanced motion only when user has not requested reduced animations.
+ (function(){
+  var header=root.querySelector('.v3-header');
+  var scheduled=false;
+  function updateHeader(){if(header)header.classList.toggle('v3-header-scrolled',window.scrollY>22);}
+  updateHeader();
+  window.addEventListener('scroll',function(){
+   if(!scheduled){scheduled=true;window.requestAnimationFrame(function(){updateHeader();scheduled=false;});}
+  },{passive:true});
+  var motionOK=!!(window.matchMedia&&window.matchMedia('(prefers-reduced-motion: no-preference)').matches);
+  if(motionOK&&'IntersectionObserver' in window){
+   var nodes=root.querySelectorAll('.v3-section-head,.v3-feature-card,.v3-insights-copy,.v3-analytics-device,.v3-price-card,.v3-type-row,.v3-demo-copy,.v3-demo-form');
+   var observer=new IntersectionObserver(function(entries){
+    entries.forEach(function(entry){
+     if(entry.isIntersecting){entry.target.classList.add('v3-in-view');observer.unobserve(entry.target);}
+    });
+   },{rootMargin:'0px 0px -40px 0px',threshold:.06});
+   nodes.forEach(function(element,i){
+    element.classList.add('v3-scroll-reveal');
+    element.style.setProperty('--reveal-delay',String(i%3*75)+'ms');
+    observer.observe(element);
+   });
+   root.classList.add('v3-motion-ready');
+  }
+  if(window.matchMedia&&window.matchMedia('(hover: hover) and (pointer: fine)').matches){
+   root.querySelectorAll('.v3-feature-card').forEach(function(card){
+    card.addEventListener('pointermove',function(ev){
+     var bounds=card.getBoundingClientRect();
+     card.style.setProperty('--spot-x',Math.round(ev.clientX-bounds.left)+'px');
+     card.style.setProperty('--spot-y',Math.round(ev.clientY-bounds.top)+'px');
+    },{passive:true});
+   });
+  }
+ })();
+
 })();
