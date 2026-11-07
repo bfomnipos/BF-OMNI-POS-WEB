@@ -1,0 +1,48 @@
+name: Import latest BF Omni POS landing build
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/import-landing-build.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  import-compiled-frontend:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download verified private CI artifact
+        env:
+          ARTIFACT_URL: "https://sdmntprindiasocentral.oaiusercontent.com/files/00000000-a2c0-8211-89d3-7a5e8d6101d4/raw?se=2026-11-07T15%3A38%3A29Z&sp=r&sv=2026-02-06&sr=b&scid=11195a05-c07a-5b95-ae9c-f5484e2ac42a&skoid=ca37c3ec-ab43-496e-be5f-4684c5519a26&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2026-11-07T04%3A18%3A44Z&ske=2026-11-08T04%3A18%3A44Z&sks=b&skv=2026-02-06&sig=Uo1xh3zxDHYYLZZJt6v44AbIXYTd/I3d6RgpHICv/ko%3D"
+        run: |
+          set -euo pipefail
+          mkdir -p site-out
+          curl -fLsS --retry 3 --max-time 120 "$ARTIFACT_URL" -o /tmp/bf-landing.zip
+          unzip -tq /tmp/bf-landing.zip
+          unzip -q /tmp/bf-landing.zip -d site-out
+      - name: Verify BF Omni POS new landing, admin and staff files
+        run: |
+          set -euo pipefail
+          test -s site-out/index.html
+          grep -q 'BF Omni POS | Smart Restaurant Operations in Malaysia' site-out/index.html
+          test -s site-out/legacy/app.html
+          grep -qx 'www.bfomnipos.com' site-out/CNAME
+          test -n "$(find site-out/assets -name '*.js' -print -quit)"
+          test -n "$(find site-out/assets -name '*.css' -print -quit)"
+      - name: Publish only compiled frontend to site branch
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          cd site-out
+          touch .nojekyll
+          git init
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git config user.name "github-actions[bot]"
+          git checkout -b site
+          git add -A
+          git commit -m "Deploy premium BF Omni POS marketing homepage and portal"
+          git remote add origin "https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
+          git push --force origin site
