@@ -10,10 +10,10 @@
    menuBtn.setAttribute('aria-label',on?'Close menu':'Open menu');
   });
   nav.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){
-   nav.classList.remove('open');menuBtn.setAttribute('aria-expanded','false');
+   nav.classList.remove('open');menuBtn.setAttribute('aria-expanded','false');menuBtn.setAttribute('aria-label','Open menu');
   });});
   document.addEventListener('keydown',function(e){if(e.key==='Escape'){
-   nav.classList.remove('open');menuBtn.setAttribute('aria-expanded','false');
+   nav.classList.remove('open');menuBtn.setAttribute('aria-expanded','false');menuBtn.setAttribute('aria-label','Open menu');
   }});
  }
  var products=[
