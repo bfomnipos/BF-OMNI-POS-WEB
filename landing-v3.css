@@ -428,3 +428,20 @@
 @media(prefers-reduced-motion:reduce){
  .v3-root *, .v3-root *::before,.v3-root *::after{animation-duration:.01ms!important;transition-duration:.01ms!important}
 }
+
+/* Visual QA — legible mobile copy, consistent with BF Omni POS premium typography. */
+.v3-root .v3-feature-card h3{font-size:16px;line-height:1.35}
+.v3-root .v3-feature-card p{font-size:13px;line-height:1.65}
+.v3-root .v3-section-head p{font-size:15px;line-height:1.65}
+.v3-root .v3-benefits-inline span{font-size:12px;line-height:1.5}
+.v3-root .v3-region-tag{font-size:12px}
+.v3-root .v3-btn{min-height:44px}
+@media(max-width:680px){
+ .v3-root .v3-hero-copy>p:not(.v3-hero-disclaimer){font-size:15px;line-height:1.7}
+ .v3-root .v3-hero-buttons .v3-btn{font-size:14px;min-height:46px}
+ .v3-root .v3-feature-card,.v3-root .v3-feature-card:nth-child(-n+3){min-height:156px}
+ .v3-root .v3-feature-card h3{font-size:14px}
+ .v3-root .v3-feature-card p{font-size:12px;line-height:1.6}
+ .v3-root .v3-section-head p{font-size:14px}
+ .v3-root .v3-benefits-inline span{font-size:12px}
+}
