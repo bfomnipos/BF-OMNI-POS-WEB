@@ -1,0 +1,62 @@
+/* BF Omni POS V5: reference-aligned, accessible marketing design.
+   Modern black-and-gold hero, premium POS showcase and light editorial sections. */
+.v3-root{--v3-gold:#ffc43e;--v3-gold-soft:#ffe8a5;--v3-gold-deep:#a76d11}
+.v3-header{background:rgba(6,8,10,.97);border-bottom:1px solid rgba(255,203,80,.32);box-shadow:0 9px 32px #0007}
+.v3-logo-mark{background:linear-gradient(140deg,#ffef9a,#ffc737 55%,#bb7d0a);color:#120f08;box-shadow:0 0 0 1px #ffea96b8,0 0 18px #ffb90b4b}
+.v3-logo-type{font-weight:900;letter-spacing:-.065em}
+.v3-hero{background:#0c0a09;min-height:615px;overflow:hidden;border-bottom:1px solid #edb83f}
+.v3-hero-backdrop{background:linear-gradient(90deg,#07090afc 0%,#080809ea 27%,#100e0b9c 55%,#0a070788 100%),linear-gradient(0deg,#040505eb,transparent 44%),url("https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=1800&fit=crop&auto=format&q=84") center/cover no-repeat;filter:saturate(1.3);opacity:1}
+.v3-hero-copy h1{font-size:clamp(38px,4.2vw,68px);letter-spacing:-.065em}
+.v3-hero-copy h1 span{color:#ffcb45;text-shadow:0 3px 32px #f6b51e3b}
+.v3-region-tag,.v3-benefits-inline span svg{color:#ffcf4c}
+.v3-btn-gold{background:linear-gradient(135deg,#ffeb92 0%,#ffcc35 52%,#ce8809 100%);border:1px solid #fff1aa;color:#141006;font-weight:900;box-shadow:0 10px 24px #efb42243,inset 0 1px #fff6c3}
+.v3-btn-gold:hover{box-shadow:0 0 0 1px #ffda69,0 0 28px #ffcc4655;transform:translateY(-2px)}
+.v3-terminal-shell{box-shadow:0 0 0 2px #080a0d,0 0 0 3px #e7b14165,0 0 34px #ffc02e40,0 30px 90px #000}
+.v3-terminal-tabs button[aria-pressed=true],.v3-terminal-tabs button.active{background:linear-gradient(#ffe77c,#fab324);color:#18120b;box-shadow:0 0 15px #eab13861}
+.v3-hero-bottom{background:linear-gradient(90deg,transparent,#f8bb27 22%,#fff0ad 50%,#f0a914 78%,transparent);height:3px;box-shadow:0 0 22px #f6ac24}
+.v5-role-experience{background:linear-gradient(165deg,#fffdfa,#f5f0e8);color:#191919;position:relative;padding:42px 0 38px;border-bottom:1px solid #e5d8c4}
+.v5-role-layout{display:grid;grid-template-columns:minmax(210px,.85fr) minmax(0,2fr);gap:28px;align-items:center}
+.v5-role-intro>span{display:block;font-weight:900;font-size:10px;letter-spacing:.16em;color:#b27312}
+.v5-role-intro h2{font-size:clamp(25px,2.8vw,40px);letter-spacing:-.06em;line-height:1.18;margin:10px 0 13px;color:#111}
+.v5-role-intro h2 em{color:#dd8413;font-style:normal}
+.v5-role-intro p{color:#575a60;line-height:1.6;font-size:13px;margin:0}
+.v5-role-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+.v5-role-card{display:flex;flex-direction:column;justify-content:flex-end;align-items:flex-start;min-height:174px;position:relative;overflow:hidden;border-radius:15px;padding:15px;color:white;background:linear-gradient(145deg,#24272b,#070b10);border:1px solid #cca451;box-shadow:0 9px 23px #0003}
+.v5-role-card:before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 73% 23%,#ffcc4261,transparent 33%),linear-gradient(160deg,#ffffff18,transparent 55%);pointer-events:none}
+.v5-role-card:after{content:"";position:absolute;right:-20px;top:-25px;width:110px;height:110px;border:1px solid #f8c45b4c;border-radius:45%;transform:rotate(20deg)}
+.v5-role-card:hover{transform:translateY(-5px);border-color:#f4b634;box-shadow:0 14px 30px #0004,0 0 20px #efbb4c33}
+.v5-role-icon{width:45px;height:45px;display:grid;place-items:center;border:1px solid #ffca52b0;border-radius:12px;background:linear-gradient(145deg,#665017,#20180d);color:#ffdd80;font-size:19px;font-weight:900;position:relative;z-index:1;box-shadow:0 4px 18px #f4b22921;margin-bottom:auto}
+.v5-role-card strong{font-size:15px;color:#fff;z-index:1;line-height:1.2}
+.v5-role-card small{font-size:10px;color:#d9d6cd;z-index:1;margin-top:5px;line-height:1.5}
+.v3-features{background:linear-gradient(165deg,#fffefa,#f1eee8)!important;color:#1d1c1a;border-bottom:1px solid #e7d6ba}
+.v3-features .v3-section-head h2{color:#141414}
+.v3-features .v3-section-head h2 em{color:#e18a09}
+.v3-features .v3-section-head p{color:#59616b}
+.v3-features .v3-section-head span{color:#b07818}
+.v3-feature-card,.v3-feature-card:nth-child(n){background:linear-gradient(140deg,#fff,#f6f3ef)!important;border:1px solid #e0d9cc;box-shadow:0 8px 24px #00000010,inset 0 1px #fff;color:#242424}
+.v3-feature-card h3{color:#1a1a1b!important}
+.v3-feature-card p{color:#62636a!important}
+.v3-feature-icon{color:#df900f!important;background:linear-gradient(150deg,#fff8e8,#f2e9d7)!important;border:1px solid #eddbb2}
+.v3-feature-more{color:#d08a1a}
+.v3-feature-foot{color:#666!important}
+.v3-insights{background:linear-gradient(115deg,#fdfcf8,#f1ece2)!important;color:#191919;border-bottom:1px solid #decba3}
+.v3-insights:after{opacity:.35}
+.v3-insights-copy h2{color:#191919!important}
+.v3-insights-copy h2 span{color:#d68a17!important}
+.v3-insights-copy p,.v3-insights-copy li{color:#4d535c!important}
+.v3-insights-copy li svg{color:#d88d11!important}
+.v3-insights-copy .v3-kicker{color:#b17a18!important}
+.v3-pricing{background:radial-gradient(ellipse at 50% -25%,#60401544,transparent 58%),#0b0d10}
+.v3-price-card{background:linear-gradient(150deg,#28221b,#11151b 78%);border:1px solid #956d2d}
+.v3-price-card.featured{background:linear-gradient(155deg,#302515,#101418 77%);box-shadow:0 0 0 2px #e0ad3b80,0 0 34px #ffc13529}
+.v3-types{background:linear-gradient(180deg,#f8f5ef,#fff);border-bottom:1px solid #eee0c6}
+.v3-types h2,.v3-type-row span{color:#222}
+.v3-type-row span{border-right-color:#c8ba9c}
+.v3-type-row svg{color:#d58b13}
+.v3-demo-section{background:linear-gradient(130deg,#10141a,#1d170e 60%,#06080b)}
+.v3-demo-form{background:linear-gradient(155deg,#252629,#0d1117);border-color:#a88236;box-shadow:0 22px 65px #0009}
+.v3-footer{background:#080a0e;border-top:1px solid #b48a3859}
+@media(max-width:1100px){.v5-role-layout{grid-template-columns:1fr}.v5-role-intro{max-width:650px}.v5-role-card{min-height:165px}}
+@media(max-width:680px){.v5-role-experience{padding:31px 0}.v5-role-layout{gap:20px}.v5-role-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.v5-role-card{min-height:150px}.v5-role-intro h2{font-size:29px}.v3-insights-layout{gap:30px}.v3-hero-copy h1{font-size:clamp(35px,8.4vw,53px)}}
+@media(max-width:390px){.v5-role-card{min-height:140px;padding:12px}.v5-role-card strong{font-size:14px}.v5-role-card small{font-size:10px}.v5-role-icon{width:39px;height:39px}}
+@media(prefers-reduced-motion:reduce){.v5-role-card,.v3-btn-gold{transition:none!important}}
