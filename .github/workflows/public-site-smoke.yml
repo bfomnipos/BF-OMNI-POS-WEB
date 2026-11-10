@@ -1,0 +1,185 @@
+name: BF Omni POS live website QA (manual and main trigger)
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/public-site-smoke.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: bf-omni-public-site-smoke
+  cancel-in-progress: false
+
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - name: Verify live HTTPS homepage, portal routes and referenced compiled assets
+        shell: bash
+        env:
+          BF_SITE: https://www.bfomnipos.com/
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import os
+          import re
+          import sys
+          from concurrent.futures import ThreadPoolExecutor, as_completed
+          from urllib.parse import urljoin
+          from urllib.request import Request, urlopen
+
+          base = os.environ['BF_SITE']
+          headers = {'User-Agent': 'BF-Omni-POS-public-smoke/1.0'}
+
+          def get(url):
+              req = Request(url, headers=headers)
+              with urlopen(req, timeout=25) as response:
+                  if response.status != 200:
+                      raise RuntimeError(f'HTTP {response.status}: {url}')
+                  return response.read().decode('utf-8', errors='replace')
+
+          def head_asset(path):
+              url = urljoin(base, 'assets/' + path)
+              req = Request(url, method='HEAD', headers=headers)
+              with urlopen(req, timeout=25) as response:
+                  if response.status != 200:
+                      raise RuntimeError(f'HTTP {response.status}: {url}')
+              return path
+
+          try:
+              html = get(base)
+              required = [
+                  'id="marketing"', 'id="root"', 'landing-v3.css',
+                  'marketing-v3.js', "portal==='staff'", "portal==='admin'",
+              ]
+              missing = [token for token in required if token not in html]
+              if missing:
+                  raise RuntimeError('Public homepage lost the landing/portal shell: ' + repr(missing))
+
+              js = re.search(r"(?:script|js)\.src=['\"]\./assets/(index-[A-Za-z0-9_-]+\.js)", html)
+              css = re.search(r"css\.href=['\"]\./assets/(index-[A-Za-z0-9_-]+\.css)", html)
+              if not js or not css:
+                  raise RuntimeError('Compiled staff/admin entry JS or CSS link is missing')
+
+              for route in ('?portal=staff', '?portal=admin'):
+                  route_html = get(urljoin(base, route))
+                  if 'id="root"' not in route_html or 'portal' not in route_html:
+                      raise RuntimeError(f'Portal route {route} returned the wrong HTML')
+
+              js_name, css_name = js.group(1), css.group(1)
+              js_text = get(urljoin(base, 'assets/' + js_name))
+              if 'StaffEntry-' not in js_text or 'AdminEntry-' not in js_text:
+                  raise RuntimeError('Published portal entry is missing Staff/Admin lazy modules')
+
+              deps = re.findall(r'"\./([A-Za-z0-9_./-]+\.(?:js|css))"', js_text[:3500])
+              if len(deps) < 10:
+                  raise RuntimeError('Portal chunk manifest is absent or unexpectedly small')
+              targets = sorted(set([js_name, css_name, *deps]))
+              with ThreadPoolExecutor(max_workers=6) as pool:
+                  future_to_asset = {pool.submit(head_asset, item): item for item in targets}
+                  failures = []
+                  for future in as_completed(future_to_asset):
+                      try:
+                          future.result()
+                      except Exception as error:
+                          failures.append(f'{future_to_asset[future]}: {error}')
+              if failures:
+                  raise RuntimeError('Broken portal assets:\n' + '\n'.join(failures))
+              print('PASS: public HTTPS homepage, staff/admin route shell, and',
+                    len(targets), 'compiled JS/CSS assets return HTTP 200.')
+              print('This verifies anonymous asset delivery only; real sign-in, RLS,')
+              print('payments, receipt printers and mobile-device UX need separate E2E QA.')
+          except Exception as exc:
+              print('FAIL: BF Omni POS public site smoke:', exc, file=sys.stderr)
+              sys.exit(1)
+          PY
+
+  browser:
+    name: Real Chromium landing and unauthenticated portal rendering
+    needs: smoke
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      BF_SITE: https://www.bfomnipos.com/
+    steps:
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install Chromium test runtime
+        run: |
+          python -m pip install --disable-pip-version-check playwright==1.56.0
+          python -m playwright install --with-deps chromium
+      - name: Render and verify desktop/mobile screens without any login or customer data
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import os
+          from pathlib import Path
+          from playwright.sync_api import sync_playwright
+
+          base = os.environ['BF_SITE']
+          output = Path('public-qa-screenshots')
+          output.mkdir(exist_ok=True)
+          cases = [
+              ('landing-desktop', '', 1440, 900),
+              ('landing-mobile', '', 390, 844),
+              ('staff-mobile', '?portal=staff', 390, 844),
+              ('staff-desktop', '?portal=staff', 1440, 900),
+              ('admin-mobile', '?portal=admin', 390, 844),
+          ]
+          errors = []
+          with sync_playwright() as playwright:
+              browser = playwright.chromium.launch(headless=True)
+              for label, path, width, height in cases:
+                  page = browser.new_page(viewport={'width': width, 'height': height})
+                  uncaught = []
+                  page.on('pageerror', lambda error: uncaught.append(str(error)))
+                  try:
+                      response = page.goto(base + path, wait_until='domcontentloaded', timeout=35000)
+                      if not response or response.status != 200:
+                          raise AssertionError(f'HTTP {response.status if response else "none"}')
+                      if not path:
+                          page.locator('#marketing .v3-hero').wait_for(state='visible', timeout=18000)
+                      else:
+                          page.locator('#root').wait_for(state='visible', timeout=18000)
+                          page.wait_for_function(
+                              "() => document.querySelector('#root')?.children.length > 0",
+                              timeout=20000,
+                          )
+                          if path == '?portal=staff':
+                              page.locator('input[type="email"]').first.wait_for(
+                                  state='visible', timeout=18000,
+                              )
+                      page.wait_for_timeout(800)
+                      overflow = page.evaluate(
+                          '() => document.documentElement.scrollWidth - window.innerWidth'
+                      )
+                      if overflow > 2:
+                          raise AssertionError(f'horizontal overflow: {overflow}px')
+                      if uncaught:
+                          raise AssertionError('uncaught JavaScript errors: ' + '; '.join(uncaught[:4]))
+                      print('PASS', label, 'responsive page; overflow', overflow, 'px')
+                  except Exception as error:
+                      errors.append(f'{label}: {error}')
+                      print('FAIL', label, error)
+                  finally:
+                      page.screenshot(path=str(output / f'{label}.png'), full_page=True)
+                      page.close()
+              browser.close()
+          if errors:
+              raise SystemExit('Public Chromium QA failed:\n' + '\n'.join(errors))
+          print('PASS: 5 browser layouts. This does NOT validate real sign-in or payments.')
+          PY
+      - name: Store unauthenticated QA screenshots for review
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: bf-omni-public-browser-screenshots
+          path: public-qa-screenshots/
+          if-no-files-found: ignore
+          retention-days: 7
