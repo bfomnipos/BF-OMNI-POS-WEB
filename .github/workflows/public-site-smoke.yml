@@ -14,7 +14,80 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
+  preflight:
+    name: Check published site bundle independently of DNS
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: site
+      - name: Verify landing, auth route loader and all V8 entry chunks
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import re
+          from pathlib import Path
+
+          root = Path.cwd()
+          html = (root / "index.html").read_text(encoding="utf-8")
+          required = (
+              'id="marketing"', 'id="root"', "portal==='staff'",
+              "portal==='admin'", "marketing-v3.js", "landing-v3.css",
+          )
+          missing = [item for item in required if item not in html]
+          if missing:
+              raise SystemExit("ERROR: marketing/login shell changed: " + repr(missing))
+
+          js = re.search(r"script\.src=['\"]\./assets/(index-[A-Za-z0-9_-]+\.js)", html)
+          css = re.search(r"css\.href=['\"]\./assets/(index-[A-Za-z0-9_-]+\.css)", html)
+          if not js or not css:
+              raise SystemExit("ERROR: missing compiled React portal asset pointers")
+
+          source = root / "assets" / js.group(1)
+          if not source.is_file():
+              raise SystemExit("ERROR: compiled portal entry JS is missing")
+          entry = source.read_text(encoding="utf-8")
+          if "StaffEntry-" not in entry or "AdminEntry-" not in entry:
+              raise SystemExit("ERROR: compiled portal entry lacks Staff/Admin routes")
+
+          deps = re.findall(r'"\./([A-Za-z0-9_./-]+\.(?:js|css))"', entry[:3500])
+          if len(deps) < 10:
+              raise SystemExit("ERROR: compiled portal chunk manifest is truncated")
+          targets = sorted(set([js.group(1), css.group(1), *deps]))
+          missing_assets = [name for name in targets if not
+                            (root / "assets" / name).is_file()]
+          if missing_assets:
+              raise SystemExit("ERROR: missing compiled assets: " + repr(missing_assets))
+
+          marketing_assets = [
+              "landing-v3.css", "marketing-v3.js", "landing-v3-motion.css",
+              "landing-reference-v5.css", "landing-reference-v6.css",
+              "reference-premium-v5-guard.css", "reference-visual-v6.css",
+          ]
+          missing_marketing = [name for name in marketing_assets
+                               if not (root / name).is_file()]
+          if missing_marketing:
+              raise SystemExit("ERROR: missing marketing resources: " + repr(missing_marketing))
+
+          cname = (root / "CNAME").read_text(encoding="utf-8").strip()
+          if cname != "www.bfomnipos.com":
+              raise SystemExit("ERROR: unexpected Pages custom domain: " + cname)
+
+          forbidden = [p.as_posix() for p in (root / "assets").rglob("*")
+                       if p.is_file() and p.suffix.lower() in
+                       {".tsx", ".ts", ".sql", ".env", ".pem", ".key", ".map"}]
+          if forbidden:
+              raise SystemExit("ERROR: unsafe source in public build: " + repr(forbidden))
+
+          print("PASS: GitHub Pages site branch contains", len(targets),
+                "portal assets, marketing files, correct CNAME and safe compiled output.")
+          print("Local asset parity is independent of DNS/HTTPS; other jobs check the live domain.")
+          PY
+
   smoke:
+    needs: preflight
     runs-on: ubuntu-latest
     timeout-minutes: 8
     steps:
