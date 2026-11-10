@@ -239,3 +239,11 @@
 #root .av4-v6-insights>.av4-v6-trend{grid-column:auto;grid-row:auto;min-width:0}
 /* Waiter order entry must precede history; retain floor-first mobile flow. */
 #root .ops-root:has(.ops-waiter-floor)>.ops-pos-history{order:4}
+
+/* Clearly isolate sample/test restaurant data from commercial restaurant sales. */
+#root .v4-demo-banner{display:flex;align-items:flex-start;gap:11px;padding:13px 16px;margin-bottom:14px;border:1px solid #e8b947;border-radius:13px;background:linear-gradient(120deg,#3f2c0d,#201b13 65%,#12151a);color:#ffdb74;box-shadow:0 0 0 1px #b1801633,inset 0 1px #ffffff1c}
+#root .v4-demo-banner>svg{flex:none;color:#ffca43;margin-top:1px}
+#root .v4-demo-banner>div{display:flex;flex-direction:column;gap:4px}
+#root .v4-demo-banner strong{font-size:12px;letter-spacing:.08em;color:#ffe38f}
+#root .v4-demo-banner span{font-size:11.5px;color:#e8dbbf;line-height:1.5}
+@media(max-width:680px){#root .v4-demo-banner{margin-top:0;padding:11px 12px}#root .v4-demo-banner strong{font-size:10px}#root .v4-demo-banner span{font-size:11px}}
