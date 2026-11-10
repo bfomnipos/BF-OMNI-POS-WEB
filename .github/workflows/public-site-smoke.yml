@@ -1,0 +1,101 @@
+name: BF Omni POS public website smoke (no accounts)
+on:
+  push:
+    branches: [site]
+    paths:
+      - 'index.html'
+      - 'assets/**'
+      - '.github/workflows/public-site-smoke.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: bf-omni-public-site-smoke
+  cancel-in-progress: false
+
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - name: Verify live HTTPS homepage, portal routes and referenced compiled assets
+        shell: bash
+        env:
+          BF_SITE: https://www.bfomnipos.com/
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import os
+          import re
+          import sys
+          from concurrent.futures import ThreadPoolExecutor, as_completed
+          from urllib.parse import urljoin
+          from urllib.request import Request, urlopen
+
+          base = os.environ['BF_SITE']
+          headers = {'User-Agent': 'BF-Omni-POS-public-smoke/1.0'}
+
+          def get(url):
+              req = Request(url, headers=headers)
+              with urlopen(req, timeout=25) as response:
+                  if response.status != 200:
+                      raise RuntimeError(f'HTTP {response.status}: {url}')
+                  return response.read().decode('utf-8', errors='replace')
+
+          def head_asset(path):
+              url = urljoin(base, 'assets/' + path)
+              req = Request(url, method='HEAD', headers=headers)
+              with urlopen(req, timeout=25) as response:
+                  if response.status != 200:
+                      raise RuntimeError(f'HTTP {response.status}: {url}')
+              return path
+
+          try:
+              html = get(base)
+              required = [
+                  'id="marketing"', 'id="root"', 'landing-v3.css',
+                  'marketing-v3.js', "portal==='staff'", "portal==='admin'",
+              ]
+              missing = [token for token in required if token not in html]
+              if missing:
+                  raise RuntimeError('Public homepage lost the landing/portal shell: ' + repr(missing))
+
+              js = re.search(r"(?:script|js)\.src=['\"]\./assets/(index-[A-Za-z0-9_-]+\.js)", html)
+              css = re.search(r"css\.href=['\"]\./assets/(index-[A-Za-z0-9_-]+\.css)", html)
+              if not js or not css:
+                  raise RuntimeError('Compiled staff/admin entry JS or CSS link is missing')
+
+              for route in ('?portal=staff', '?portal=admin'):
+                  route_html = get(urljoin(base, route))
+                  if 'id="root"' not in route_html or 'portal' not in route_html:
+                      raise RuntimeError(f'Portal route {route} returned the wrong HTML')
+
+              js_name, css_name = js.group(1), css.group(1)
+              js_text = get(urljoin(base, 'assets/' + js_name))
+              if 'StaffEntry-' not in js_text or 'AdminEntry-' not in js_text:
+                  raise RuntimeError('Published portal entry is missing Staff/Admin lazy modules')
+
+              deps = re.findall(r'"\./([A-Za-z0-9_./-]+\.(?:js|css))"', js_text[:3500])
+              if len(deps) < 10:
+                  raise RuntimeError('Portal chunk manifest is absent or unexpectedly small')
+              targets = sorted(set([js_name, css_name, *deps]))
+              with ThreadPoolExecutor(max_workers=6) as pool:
+                  future_to_asset = {pool.submit(head_asset, item): item for item in targets}
+                  failures = []
+                  for future in as_completed(future_to_asset):
+                      try:
+                          future.result()
+                      except Exception as error:
+                          failures.append(f'{future_to_asset[future]}: {error}')
+              if failures:
+                  raise RuntimeError('Broken portal assets:\n' + '\n'.join(failures))
+              print('PASS: public HTTPS homepage, staff/admin route shell, and',
+                    len(targets), 'compiled JS/CSS assets return HTTP 200.')
+              print('This verifies anonymous asset delivery only; real sign-in, RLS,')
+              print('payments, receipt printers and mobile-device UX need separate E2E QA.')
+          except Exception as exc:
+              print('FAIL: BF Omni POS public site smoke:', exc, file=sys.stderr)
+              sys.exit(1)
+          PY
