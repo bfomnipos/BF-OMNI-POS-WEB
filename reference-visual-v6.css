@@ -233,3 +233,9 @@
 #root .av4-v6-dot.other{background:#fa5b68}
 #root .av4-v6-insights .v5-plan-mix{margin-top:14px}
 @media(max-width:500px){#root .av4-v6-subscription-chart{grid-template-columns:112px minmax(0,1fr);gap:9px}#root .av4-v6-donut{height:108px;width:108px}#root .av4-v6-donut>div{width:78px;height:78px}#root .av4-v6-donut strong{font-size:25px}#root .av4-v6-donut span{font-size:9px}}
+
+/* V6 screenshot QA: keep Admin trend + subscription donut in one row on desktops. */
+#root .av4-v6-insights>.v5-activity-panel{grid-column:auto!important;grid-row:auto!important;min-width:0}
+#root .av4-v6-insights>.av4-v6-trend{grid-column:auto;grid-row:auto;min-width:0}
+/* Waiter order entry must precede history; retain floor-first mobile flow. */
+#root .ops-root:has(.ops-waiter-floor)>.ops-pos-history{order:4}
