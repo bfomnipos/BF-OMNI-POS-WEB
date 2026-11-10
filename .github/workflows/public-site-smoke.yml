@@ -99,3 +99,89 @@ jobs:
               print('FAIL: BF Omni POS public site smoke:', exc, file=sys.stderr)
               sys.exit(1)
           PY
+
+  browser:
+    name: Real Chromium landing and unauthenticated portal rendering
+    needs: smoke
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      BF_SITE: https://www.bfomnipos.com/
+    steps:
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install Chromium test runtime
+        run: |
+          python -m pip install --disable-pip-version-check playwright==1.56.0
+          python -m playwright install --with-deps chromium
+      - name: Render and verify desktop/mobile screens without any login or customer data
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import os
+          from pathlib import Path
+          from playwright.sync_api import sync_playwright
+
+          base = os.environ['BF_SITE']
+          output = Path('public-qa-screenshots')
+          output.mkdir(exist_ok=True)
+          cases = [
+              ('landing-desktop', '', 1440, 900),
+              ('landing-mobile', '', 390, 844),
+              ('staff-mobile', '?portal=staff', 390, 844),
+              ('staff-desktop', '?portal=staff', 1440, 900),
+              ('admin-mobile', '?portal=admin', 390, 844),
+          ]
+          errors = []
+          with sync_playwright() as playwright:
+              browser = playwright.chromium.launch(headless=True)
+              for label, path, width, height in cases:
+                  page = browser.new_page(viewport={'width': width, 'height': height})
+                  uncaught = []
+                  page.on('pageerror', lambda error: uncaught.append(str(error)))
+                  try:
+                      response = page.goto(base + path, wait_until='domcontentloaded', timeout=35000)
+                      if not response or response.status != 200:
+                          raise AssertionError(f'HTTP {response.status if response else "none"}')
+                      if not path:
+                          page.locator('#marketing .v3-hero').wait_for(state='visible', timeout=18000)
+                      else:
+                          page.locator('#root').wait_for(state='visible', timeout=18000)
+                          page.wait_for_function(
+                              "() => document.querySelector('#root')?.children.length > 0",
+                              timeout=20000,
+                          )
+                          if path == '?portal=staff':
+                              page.locator('input[type="email"]').first.wait_for(
+                                  state='visible', timeout=18000,
+                              )
+                      page.wait_for_timeout(800)
+                      overflow = page.evaluate(
+                          '() => document.documentElement.scrollWidth - window.innerWidth'
+                      )
+                      if overflow > 2:
+                          raise AssertionError(f'horizontal overflow: {overflow}px')
+                      if uncaught:
+                          raise AssertionError('uncaught JavaScript errors: ' + '; '.join(uncaught[:4]))
+                      print('PASS', label, 'responsive page; overflow', overflow, 'px')
+                  except Exception as error:
+                      errors.append(f'{label}: {error}')
+                      print('FAIL', label, error)
+                  finally:
+                      page.screenshot(path=str(output / f'{label}.png'), full_page=True)
+                      page.close()
+              browser.close()
+          if errors:
+              raise SystemExit('Public Chromium QA failed:\n' + '\n'.join(errors))
+          print('PASS: 5 browser layouts. This does NOT validate real sign-in or payments.')
+          PY
+      - name: Store unauthenticated QA screenshots for review
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: bf-omni-public-browser-screenshots
+          path: public-qa-screenshots/
+          if-no-files-found: ignore
+          retention-days: 7
