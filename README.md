@@ -40,8 +40,15 @@ The landing page is public marketing content. Real payments, receipt printing an
 - Public `site/index.html` now includes **real semantic HTML** for the screenshot-inspired restaurant landing page, not a flattened image.
 - `site/landing-v3.css` styles the black/champagne-gold restaurant hero, illustrated POS device, clickable features, analytics panel, pricing and contact form on desktop/tablet/mobile.
 - `site/marketing-v3.js` enables sample menu add/remove, category selection, mobile navigation and secured demo request submission to Supabase using its public publishable key.
-- Existing compiled React assets remain available on the public branch. Query links `?portal=staff`, `?portal=admin` and `?portal=preview` still load the older public compiled React bundle. The **latest private POS modules have not been promoted**.
+- The public `site/index.html` portal loader now points to the **V8 compiled React bundle**. On 11 November 2026, 26 compiled JS/CSS assets on `site` (Staff, Admin, Guest, Landing and shared dependencies) were compared with private `bf-v8-compiled-20261110-shared-pos` and their blob SHAs matched. This confirms file parity in GitHub, **not** a successful live-domain browser or login test.
 - Pricing remains the current development-stage RM79, RM129 and RM199; the screenshot's RM99/RM149/RM249 is **not** the approved subscription schedule.
 - Actual payment capture, online checkout, QR settlement, MyInvois document submission, and thermal printer hardware are **not** claimed to be live.
 - GitHub Pages deployment of the `site` branch succeeded. Custom-domain DNS, HTTPS, real browser and external-device checks remain to be verified before public launch.
 - The source repository `BF-OMNI-POS` also contains an interactive React `LandingPageV3.tsx` component and scoped stylesheet, for the next compiled frontend rollout. The temporary public HTML keeps the marketing site independently deployable without publishing private source code.
+
+## V8 deployment and QA checkpoint — 11 November 2026
+
+- Public `/` retains the premium V3 marketing HTML; `?portal=staff` and `?portal=admin` use the V8 compiled JS/CSS entry files.
+- [Public site smoke workflow](.github/workflows/public-site-smoke.yml) was added to the `site` branch. It checks HTTPS, route HTML and referenced compiled assets. Passing GitHub Actions output and DNS/HTTPS status still require independent verification.
+- The private [launch-gate tracker](https://github.com/bfomnipos/BF-OMNI-POS/issues/36) records real-user login, role authorization, payment, printer and mobile QA prerequisites. It is not publicly readable without repository permission.
+- Public marketing/demo figures are not proof of merchant transactions. Do not activate live money processing or claim MyInvois compliance based on mock/UI tests alone.
