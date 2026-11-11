@@ -25,13 +25,13 @@
  <link rel="icon" type="image/webp" href="./bf-omni-icon.webp"/>
  <link rel="apple-touch-icon" href="./bf-omni-icon.webp"/>
  <style id="bf-landing-logo">.v3-root .v3-logo.bf-wordmark{gap:0;min-width:0;line-height:1;display:inline-flex;align-items:center}.v3-root .v3-logo.bf-wordmark>img{display:block;width:198px;max-width:100%;height:auto;max-height:71px;object-fit:contain;filter:drop-shadow(0 3px 11px #f2b63516)}@media(max-width:980px){.v3-root .v3-logo.bf-wordmark>img{width:175px}}@media(max-width:560px){.v3-root .v3-logo.bf-wordmark>img{width:156px}}</style>
-</head>
+<style id="bf-three-login">.bf-login-portals .v5-role-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.bf-login-portals .v5-role-card{min-height:165px}@media(max-width:680px){.bf-login-portals .v5-role-grid{grid-template-columns:1fr}.bf-login-portals .v5-role-card{min-height:112px}}</style></head>
 <body style="margin:0;background:#08090a">
 <div id="marketing" class="v3-root">
  <header class="v3-header"><div class="v3-container v3-nav-row">
   <a class="v3-logo bf-wordmark" href="#home" aria-label="BF Omni POS home"><img src="./bf-omni-horizontal.webp" alt="BF Omni POS" width="198" height="70" decoding="async"/></a>
-  <nav id="v3-nav" class="v3-nav" aria-label="Main navigation"><a href="#home">Home</a><a href="#features">Features</a><a href="#solutions">Solutions</a><a href="#pricing">Pricing</a><a href="#about">About</a><a href="#demo">Contact</a><a class="v3-mobile-login" href="?portal=staff">Restaurant Login <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a></nav>
-  <div class="v3-nav-actions"><a class="v3-nav-login" href="?portal=staff">Log in</a><a href="#demo" class="v3-btn v3-btn-gold v3-btn-small"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M16 3v4M8 3v4M3 11h18"/></svg> Request Free Demo</a></div>
+  <nav id="v3-nav" class="v3-nav" aria-label="Main navigation"><a href="#home">Home</a><a href="#features">Features</a><a href="#solutions">Solutions</a><a href="#pricing">Pricing</a><a href="#about">About</a><a href="#demo">Contact</a><a class="v3-mobile-login" href="?portal=hq">HQ Login</a><a class="v3-mobile-login" href="?portal=pos">POS Operations</a><a class="v3-mobile-login" href="?portal=admin">Platform Admin</a></nav>
+  <div class="v3-nav-actions"><a class="v3-nav-login" href="#login-options">Log in</a><a href="#demo" class="v3-btn v3-btn-gold v3-btn-small"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M16 3v4M8 3v4M3 11h18"/></svg> Request Free Demo</a></div>
   <button type="button" id="v3-menu-btn" class="v3-menu-toggle" aria-expanded="false" aria-label="Open menu"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
  </div></header>
  <main>
@@ -68,7 +68,7 @@
        <div class="v3-cart-items" id="v3-cart-items"></div>
        <div class="v3-cart-bottom"><span id="v3-cart-count">Items: 3</span>
          <div><b>Sample total</b><strong id="v3-cart-total">RM 42.30</strong></div>
-         <a class="v3-cart-action" href="?portal=staff">Open secure workspace <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+         <a class="v3-cart-action" href="?portal=pos">Open secure workspace <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
        </div>
       </aside>
      </div></div><div class="v3-terminal-bezel"><span></span></div><div class="v3-terminal-neck"></div><div class="v3-terminal-base"></div></div>
@@ -78,13 +78,7 @@
     </div>
    </div><div class="v3-hero-bottom"></div>
   </section>
-  <section class="v5-role-experience" aria-label="Restaurant role workspaces">
- <div class="v3-container v5-role-layout">
- <div class="v5-role-intro"><span>ONE CONNECTED RESTAURANT</span>
- <h2>A Complete System for <em>Every Role</em></h2>
- <p>Separate, role-secured workspaces connect your people, orders and kitchen without mixing permissions.</p></div>
- <div class="v5-role-grid"><a class="v5-role-card" href="?portal=staff"><span class="v5-role-icon"><svg xmlns="http://www.w3.org/2000/svg" width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 10 5 4h14l2 6v10H3zM3 10h18M9 20v-7h6v7"/></svg></span><strong>Owner / Manager</strong><small>Manage the whole business</small></a><a class="v5-role-card" href="?portal=staff"><span class="v5-role-icon"><svg xmlns="http://www.w3.org/2000/svg" width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M15 15h3M6 15h4"/></svg></span><strong>Cashier</strong><small>Fast ordering and billing</small></a><a class="v5-role-card" href="?portal=staff"><span class="v5-role-icon"><svg xmlns="http://www.w3.org/2000/svg" width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 3v6a4 4 0 0 0 8 0V3M8 3v18M18 3c-2 2-3 5-3 8h4v10"/></svg></span><strong>Waiter</strong><small>Table-side service</small></a><a class="v5-role-card" href="?portal=staff"><span class="v5-role-icon"><svg xmlns="http://www.w3.org/2000/svg" width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 13.9A4 4 0 0 1 5.2 6a5 5 0 0 1 9.4-1 4 4 0 0 1 5.4 5.6 4 4 0 0 1-2.2 3.3V20H6zM6 17h12"/></svg></span><strong>Kitchen (KDS)</strong><small>Connected preparation queue</small></a>
- </div></div></section>
+  <section class="v5-role-experience bf-login-portals" id="login-options" aria-label="Three secure login portals"><div class="v3-container v5-role-layout"><div class="v5-role-intro"><span>THREE SECURE LOGIN PORTALS</span><h2>One Connected System. <em>The Right Workspace.</em></h2><p>Company management, restaurant HQ and daily operations have distinct sign-in entrances. Access is always verified after login.</p></div><div class="v5-role-grid"><a class="v5-role-card" href="?portal=admin"><span class="v5-role-icon">BF</span><strong>Platform Admin</strong><small>BF Omni company management</small></a><a class="v5-role-card" href="?portal=hq"><span class="v5-role-icon">HQ</span><strong>HQ Login</strong><small>Restaurant Owner &amp; management</small></a><a class="v5-role-card" href="?portal=pos"><span class="v5-role-icon">POS</span><strong>POS Operations</strong><small>Manager, Cashier, Waiter, Kitchen</small></a></div></div></section>
    <section class="v3-features v3-section" id="features"><div class="v3-container">
    <div class="v3-section-head v3-center"><span>ALL THE ESSENTIALS</span><h2>Everything You Need to Run Your <em>F&amp;B Business</em></h2>
    <p>Powerful connected tools designed around the everyday flow of Malaysian restaurants.</p></div>
@@ -113,7 +107,7 @@
     <h2>Real-Time Insights for <span>Smarter Decisions.</span></h2>
     <p>Understand sales, service and best-selling dishes with a cleaner, more focused workspace.</p>
     <ul><li><svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg> Recorded sales & cash collection</li><li><svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg> Top-selling menu items</li><li><svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg> Daily, weekly and monthly reports</li><li><svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg> Restaurant-aware permissions</li></ul>
-    <a href="?portal=staff" class="v3-btn v3-btn-outline">Open Restaurant Workspace <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg></a>
+    <a href="?portal=pos" class="v3-btn v3-btn-outline">Open Restaurant Workspace <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg></a>
     <small>Illustrative dashboard. Not actual restaurant metrics.</small>
    </div>
   </div></section>
@@ -146,7 +140,7 @@
      <span><svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg> Malaysian restaurant workflows</span>
      <span><svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="11" width="16" height="11" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg> Development access and plan enquiries</span>
     </div>
-    <a class="v3-demo-preview-link" href="?portal=staff">Or open the secure restaurant workspace <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg></a>
+    <a class="v3-demo-preview-link" href="?portal=pos">Or open the secure restaurant workspace <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg></a>
    </div>
    <form id="v3-demo-form" class="v3-demo-form">
     <div class="v3-form-head"><span><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M16 3v4M8 3v4M3 11h18"/></svg> LET'S TALK</span><h3>Request a free product demo</h3><p>Tell us about your restaurant. We'll review your enquiry.</p></div>
@@ -170,7 +164,7 @@
   <div class="v3-footer-main">
    <div class="v3-footer-brand"><a class="v3-logo bf-wordmark" href="#home" aria-label="BF Omni POS home"><img src="./bf-omni-horizontal.webp" alt="BF Omni POS" width="198" height="70" decoding="async"/></a><p>A smarter restaurant POS experience, built for Malaysia's F&amp;B businesses.</p><span>Powered by BF Services</span></div>
    <div><h3>Explore</h3><a href="#home">Home</a><a href="#features">Features</a><a href="#solutions">Solutions</a><a href="#pricing">Pricing</a></div>
-   <div><h3>Product</h3><a href="?portal=staff">Restaurant Workspace</a><a href="?portal=staff">Restaurant Login</a><a href="#about">About BF Omni POS</a></div>
+   <div><h3>Secure Login</h3><a href="?portal=admin">Platform Admin</a><a href="?portal=hq">HQ Login</a><a href="?portal=pos">POS Operations</a><a href="#about">About BF Omni POS</a></div>
    <div><h3>Contact</h3><a href="#demo"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M16 3v4M8 3v4M3 11h18"/></svg> Request Free Demo</a><a href="#demo"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 7 10-7"/></svg> Sales enquiry</a><span><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 5-8 12-8 12S4 15 4 10a8 8 0 1 1 16 0z"/><circle cx="12" cy="10" r="2.5"/></svg> Malaysia</span></div>
   </div>
   <div class="v3-footer-bottom"><span>© <span id="v3-year">2026</span> BF Omni POS. All rights reserved.</span><span>Private source · Development preview</span></div>
@@ -181,11 +175,11 @@
 (function(){
  var params=new URLSearchParams(location.search);var portal=params.get('portal');
  if(portal==='preview'){location.replace(location.pathname+'?portal=staff');return;}
- if(portal==='staff'||portal==='admin'||portal==='preview'||portal==='menu'){
+ if(portal==='staff'||portal==='hq'||portal==='pos'||portal==='admin'||portal==='preview'||portal==='menu'){
   document.getElementById('marketing').remove();document.getElementById('root').style.display='block';
   var css=document.createElement('link');css.rel='stylesheet';css.href='./assets/index-CmtyK4j7.css';document.head.appendChild(css);
   document.querySelector('meta[name="robots"]').setAttribute('content','noindex,nofollow');
-  var script=document.createElement('script');script.type='module';script.src='./assets/index-B0jIoNGi.js';document.body.appendChild(script);
+  var script=document.createElement('script');script.type='module';script.src='./assets/index-CycpIBgj.js';document.body.appendChild(script);
  }else{
   var js=document.createElement('script');js.src='./marketing-v3.js';js.defer=true;document.body.appendChild(js);
  }
