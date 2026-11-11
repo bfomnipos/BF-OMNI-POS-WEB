@@ -222,6 +222,15 @@ jobs:
                           raise AssertionError(f'HTTP {response.status if response else "none"}')
                       if not path:
                           page.locator('#marketing .v3-hero').wait_for(state='visible', timeout=18000)
+                          page.locator('.v3-header .bf-wordmark img').first.wait_for(state='visible', timeout=18000)
+                          page.wait_for_function(
+                              """() => {
+                                const image=document.querySelector('.v3-header .bf-wordmark img');
+                                return !!image && image.complete && image.naturalWidth > 0;
+                              }""", timeout=12000,
+                          )
+                          if page.locator('#login-options .v5-role-card').count() != 3:
+                              raise AssertionError('Missing one or more of the three secure login choices')
                       else:
                           page.locator('#root').wait_for(state='visible', timeout=18000)
                           page.wait_for_function(
@@ -232,6 +241,15 @@ jobs:
                               page.locator('input[type="email"]').first.wait_for(
                                   state='visible', timeout=18000,
                               )
+                          page.locator('#root img[src^="data:image/webp;base64,"]').first.wait_for(
+                              state='visible', timeout=18000,
+                          )
+                          page.wait_for_function(
+                              """() => {
+                                const image=document.querySelector('#root img[src^="data:image/webp;base64,"]');
+                                return !!image && image.complete && image.naturalWidth > 0;
+                              }""", timeout=12000,
+                          )
                       page.wait_for_timeout(800)
                       overflow = page.evaluate(
                           '() => document.documentElement.scrollWidth - window.innerWidth'
