@@ -18,7 +18,7 @@ concurrency:
 jobs:
   preflight:
     name: Check published site bundle independently of DNS
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 5
     steps:
       - uses: actions/checkout@v4
@@ -90,7 +90,7 @@ jobs:
 
   smoke:
     needs: preflight
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 8
     steps:
       - name: Verify live HTTPS homepage, portal routes and referenced compiled assets
@@ -176,7 +176,7 @@ jobs:
   browser:
     name: Real Chromium landing and unauthenticated portal rendering
     needs: smoke
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 15
     env:
       BF_SITE: https://www.bfomnipos.com/
@@ -205,6 +205,8 @@ jobs:
               ('landing-mobile', '', 390, 844),
               ('staff-mobile', '?portal=staff', 390, 844),
               ('staff-desktop', '?portal=staff', 1440, 900),
+              ('hq-mobile', '?portal=hq', 390, 844),
+              ('pos-mobile', '?portal=pos', 390, 844),
               ('admin-mobile', '?portal=admin', 390, 844),
           ]
           errors = []
